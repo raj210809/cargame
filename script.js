@@ -1,5 +1,6 @@
 let isavail = true;
 let totalTranslation = 0;
+let gameloopinterval;
 
 let car = document.getElementById("car");
 car.setAttribute("tabindex", "0");
@@ -9,38 +10,48 @@ document.getElementById("btncont").addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     if (isavail === true) {
       isavail = false;
-      console.log("i been clicked");
       document.getElementById("start").textContent =
         "Use A and D or arrow keys to move";
+      car.addEventListener("keydown", function (e) {
+        e.preventDefault();
+        if (isavail === false) {
+          if (e.key === "d" || e.key === "D") {
+            totalTranslation += 5;
+            if (totalTranslation <= 5) {
+              console.log("Moving to the right:", totalTranslation);
+              car.style.transform = `translateX(${totalTranslation}rem)`;
+            }
+            if (totalTranslation > 5) {
+              totalTranslation = 5;
+            }
+          }
+          if (e.key === "a" || e.key === "A") {
+            totalTranslation -= 5;
+            if (totalTranslation >= -5) {
+              console.log("Moving to the left:", totalTranslation);
+              car.style.transform = `translateX(${totalTranslation}rem)`;
+            }
+            if (totalTranslation < -5) {
+              totalTranslation = -5;
+            }
+          }
+        }
+      });
+      gameinterval1 = setInterval(() => {
+        creatingrandomobst(laneselection);
+      }, 1800);
+
+      gameinterval2 = setInterval(() => {
+        creatingrandomobst(laneselection);
+      }, 2300);
+
+      setInterval(() => {
+        checkCollision();
+      }, 10);
     }
   }
 });
 
-car.addEventListener("keydown", function (e) {
-  e.preventDefault();
-  if (isavail === false) {
-    if (e.key === "d" || e.key === "D") {
-      totalTranslation += 5;
-      if (totalTranslation <= 5) {
-        console.log("Moving to the right:", totalTranslation);
-        car.style.transform = `translateX(${totalTranslation}rem)`;
-      }
-      if (totalTranslation > 5) {
-        totalTranslation = 5;
-      }
-    }
-    if (e.key === "a" || e.key === "A") {
-      totalTranslation -= 5;
-      if (totalTranslation >= -5) {
-        console.log("Moving to the left:", totalTranslation);
-        car.style.transform = `translateX(${totalTranslation}rem)`;
-      }
-      if (totalTranslation < -5) {
-        totalTranslation = -5;
-      }
-    }
-  }
-});
 function laneselection() {
   const lanes = [1, 2, 3];
   let selectedlane = lanes[Math.floor(Math.random() * lanes.length)];
@@ -68,15 +79,6 @@ function creatingrandomobst(hey) {
     obstacle.classList.add("obstacle-animation");
   }
 }
-setInterval(() => {
-  creatingrandomobst(laneselection);
-  checkCollision();
-}, 1800);
-
-setInterval(() => {
-  creatingrandomobst(laneselection);
-  checkCollision();
-}, 2300);
 
 function checkCollision() {
   const carRect = car.getBoundingClientRect();
@@ -100,7 +102,9 @@ function checkCollision() {
 function gameOver() {
   isavail = true;
   totalTranslation = 0;
-  document.getElementById("start").textContent = "Press Enter to Start";
+  document.getElementById("start").textContent = "Press Enter to Restart";
+  clearInterval(gameinterval1);
+  clearInterval(gameinterval2);
   alert("Game Over! Your car collided with an obstacle.");
 }
 
