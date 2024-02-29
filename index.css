@@ -36,3 +36,23 @@
     border-left: 3px solid white;
     border-right: 3px solid white;
 }
+#car {
+    height: 5rem;
+    width: 3rem;
+    overflow: none;
+    translate: 0px 28rem;
+}
+img {
+    aspect-ratio: 5/3;
+    height: 5rem;
+    width: 3rem;
+    rotate: 270deg;
+}
+@keyframes car {
+    from {
+        transform: translateX(0rem);
+    }
+    to {
+        transform: translateX(5rem);
+    }
+}
