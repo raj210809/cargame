@@ -23,24 +23,46 @@
     height: 100vh;
     width: 100vw;
 }
-#road {
-    height: 24rem;
+.race {
+    position: relative;
+    height: 24rem; /* Set the height of the "road" div */
     width: 15rem;
     background-color: rgba(0, 0, 0, 0.8);
+    overflow: hidden;
 }
-#horiz {
+#horiz1 {
+    margin-left: 0rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 24rem;
+    width: 5rem;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    z-index: 1;
+}
+#horiz3 {
+    margin-left: 10rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 24rem;
+    width: 5rem;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    z-index: 1;
+}
+#horiz2 {
     margin-left: 5rem;
     background-color: rgba(0, 0, 0, 0.8);
     height: 24rem;
     width: 5rem;
-    border-left: 3px solid white;
-    border-right: 3px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    z-index: 1;
 }
 #car {
     height: 5rem;
     width: 3rem;
     overflow: none;
     translate: 0px 28rem;
+    z-index: 2;
 }
 img {
     aspect-ratio: 5/3;
@@ -48,11 +70,22 @@ img {
     width: 3rem;
     rotate: 270deg;
 }
-@keyframes car {
+.obstacle {
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    background-color: red;
+    z-index: 2;
+}
+.obstacle-animation {
+    animation: moveObstacle 3s linear infinite; /* Adjust the duration and timing function as needed */
+}
+
+@keyframes moveObstacle {
     from {
-        transform: translateX(0rem);
+        top: 0;
     }
     to {
-        transform: translateX(5rem);
+        top:100%
     }
 }
