@@ -131,3 +131,18 @@ img {
     animation: moveObstacle 1.2s linear;
     animation-iteration-count: 1;
 }
+.lane-change-animation {
+    animation: lanechange 0.5s ease-out;
+  }
+  
+  @keyframes lanechange {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px); /* Adjust the translateY value as needed */
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
