@@ -1,89 +1,78 @@
-let isavail = true;
+const car = document.getElementById("car");
+const backgmusic = document.getElementById("backmusic");
+const road = document.getElementById("road");
+const scoreDisplay = document.getElementById("new");
+const bestScoreDisplay = document.getElementById("prev");
+const startButton = document.getElementById("start");
+const kickmusic = document.getElementById("kickmusic");
+
+let isGameRunning = false;
+let isGameRestarted = false;
 let totalTranslation = 0;
-let gameinterval1;
-let gameinterval2;
-let scorecheck;
 let score = 0;
-let bestscore = 0;
+let bestScore = localStorage.getItem("bestScore") || 0;
+let obstacleSpeed = 3;
 
-let car = document.getElementById("car");
-car.setAttribute("tabindex", "0");
+let gameInterval1;
+let gameInterval2;
+let scoreUpdateInterval;
 
-document.getElementById("btncont").addEventListener("keydown", (e) => {
-  e.preventDefault();
-  if (e.key === "Enter") {
-    if (isavail === true) {
-      isavail = false;
-      document.getElementById("start").textContent =
-        "Use A and D or arrow keys to move";
-      car.addEventListener("keydown", function (e) {
-        e.preventDefault();
-        if (isavail === false) {
-          if (e.key === "d" || e.key === "D") {
-            totalTranslation += 5;
-            if (totalTranslation <= 5) {
-              console.log("Moving to the right:", totalTranslation);
-              car.style.transform = `translateX(${totalTranslation}rem)`;
-            }
-            if (totalTranslation > 5) {
-              totalTranslation = 5;
-            }
-          }
-          if (e.key === "a" || e.key === "A") {
-            totalTranslation -= 5;
-            if (totalTranslation >= -5) {
-              console.log("Moving to the left:", totalTranslation);
-              car.style.transform = `translateX(${totalTranslation}rem)`;
-            }
-            if (totalTranslation < -5) {
-              totalTranslation = -5;
-            }
-          }
-        }
-      });
-      gameinterval1 = setInterval(() => {
-        creatingrandomobst(laneselection);
-      }, 1800);
-
-      gameinterval2 = setInterval(() => {
-        creatingrandomobst(laneselection);
-      }, 2300);
-
-      scorecheck = setInterval(() => {
-        score += 0.004;
-        document.getElementById("new").innerText = `Score : ${score}`;
-        checkCollision();
-      }, 10);
-    }
+function startGame() {
+  if (isGameRestarted) {
+    score = 0;
+    isGameRestarted = false;
   }
-});
 
-function laneselection() {
-  const lanes = [1, 2, 3];
-  let selectedlane = lanes[Math.floor(Math.random() * lanes.length)];
-  return selectedlane;
+  isGameRunning = true;
+  kickmusic.pause();
+  kickmusic.currentTime = 0;
+  backgmusic.play();
+  startButton.textContent = "Use A and D or arrow keys to move";
+  document.addEventListener("keydown", handleKeyPress);
+
+  // Set the score update interval only if it's not set
+  if (!scoreUpdateInterval) {
+    scoreUpdateInterval = setInterval(updateGame, 50);
+  }
+
+  // Set intervals for creating obstacles
+  gameInterval1 = setInterval(
+    () => createRandomObstacle(laneSelection()),
+    getRandomInterval()
+  );
+  gameInterval2 = setInterval(
+    () => createRandomObstacle(laneSelection()),
+    getRandomInterval()
+  );
 }
 
-function creatingrandomobst(hey) {
+function handleKeyPress(e) {
+  if (!isGameRunning) return;
+  if (e.key === "d" || e.key === "D") moveCar(5);
+  if (e.key === "a" || e.key === "A") moveCar(-5);
+}
+
+function moveCar(amount) {
+  totalTranslation += amount;
+  if (totalTranslation > 5) totalTranslation = 5;
+  if (totalTranslation < -5) totalTranslation = -5;
+  car.style.transform = `translateX(${totalTranslation}rem)`;
+}
+
+function updateGame() {
+  score += 0.1;
+  scoreDisplay.innerText = `Score: ${score.toFixed(2)}`;
+  checkCollision();
+}
+
+function createRandomObstacle(lane) {
   const obstacle = document.createElement("div");
   obstacle.className = "obstacle";
-  obstacle.id = "obstacle" + Date.now();
-  let lane = hey();
-  if (lane === 1) {
-    obstacle.style.marginLeft = "1rem";
-    document.getElementById("road").appendChild(obstacle);
-    obstacle.classList.add("obstacle-animation0");
-  }
-  if (lane === 2) {
-    obstacle.style.marginLeft = "1rem";
-    document.getElementById("horiz2").appendChild(obstacle);
-    obstacle.classList.add("obstacle-animation0");
-  }
-  if (lane === 3) {
-    obstacle.style.marginLeft = "11rem";
-    document.getElementById("road").appendChild(obstacle);
-    obstacle.classList.add("obstacle-animation0");
-  }
+  obstacle.style.transition = `top ${obstacleSpeed}s linear`;
+  obstacle.style.marginLeft = `${(lane - 1) * 5 + 1}rem`;
+  road.appendChild(obstacle);
+
+  obstacle.classList.add("obstacle-animation0");
 }
 
 function checkCollision() {
@@ -93,59 +82,60 @@ function checkCollision() {
   for (const obstacle of obstacles) {
     const obstacleRect = obstacle.getBoundingClientRect();
 
-    if (
-      carRect.x < obstacleRect.x + obstacleRect.width &&
-      carRect.x + carRect.width > obstacleRect.x &&
-      carRect.y < obstacleRect.y + obstacleRect.height &&
-      carRect.y + carRect.height > obstacleRect.y
-    ) {
+    if (isColliding(carRect, obstacleRect)) {
       gameOver();
       return;
     }
   }
 }
 
+function isColliding(rect1, rect2) {
+  return (
+    rect1.x < rect2.x + rect2.width &&
+    rect1.x + rect1.width > rect2.x &&
+    rect1.y < rect2.y + rect2.height &&
+    rect1.y + rect1.height > rect2.y
+  );
+}
+
+function getRandomInterval() {
+  return Math.random() * 1000 + 1800;
+}
+
+function laneSelection() {
+  return Math.floor(Math.random() * 3) + 1;
+}
+
 function gameOver() {
-  isavail = true;
-  document.getElementById("start").textContent = "Press Enter to Restart";
-  clearInterval(gameinterval1);
-  clearInterval(gameinterval2);
-  clearInterval(scorecheck);
-  if (score > bestscore) {
-    bestscore = score;
-    document.getElementById("prev").innerText = `Best score : ${bestscore}`;
+  isGameRunning = false;
+  backgmusic.pause();
+  kickmusic.play();
+  backgmusic.currentTime = 0;
+  startButton.textContent = "Press Enter to Restart";
+  isGameRestarted = true;
+
+  // Clear all intervals
+  clearInterval(gameInterval1);
+  clearInterval(gameInterval2);
+  clearInterval(scoreUpdateInterval);
+  scoreUpdateInterval = null; // Reset the score update interval
+  if (score > bestScore) {
+    bestScore = score;
+    localStorage.setItem("bestScore", bestScore);
+    bestScoreDisplay.innerText = `Best Score: ${bestScore.toFixed(2)}`;
   }
-  alert("game over");
-  score = 0;
-  car.setAttribute("tabindex", "0");
-}
-for (i = 1; i <= 10; i++) {
-  return setTimeout(() => {
-    car.classList.remove(`obstacle-animation${i - 1}`);
-    car.classList.add(`obstacle-animation${1}`);
-  }, 60000 * i);
+  totalTranslation = 0;
+  car.style.transform = `translateX(${totalTranslation}rem)`;
+  document.removeEventListener("keydown", handleKeyPress);
 }
 
-// const obstacle = document.createElement("div");
-// obstacle.className = "obstacle";
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    if (!isGameRunning) {
+      startGame();
+    }
+  }
+});
 
-// obstacle.style.top = "0";
-// obstacle.style.marginLeft = "1rem";
-// document.getElementById("road").appendChild(obstacle);
-// obstacle.classList.add("obstacle-animation");
-
-// const obstacle2 = document.createElement("div");
-// obstacle2.className = "obstacle";
-// obstacle2.style.top = "0";
-// obstacle2.style.marginLeft = "1rem";
-
-// document.getElementById("horiz2").appendChild(obstacle2);
-// obstacle2.classList.add("obstacle-animation");
-
-// const obstacle3 = document.createElement("div");
-// obstacle3.className = "obstacle";
-// obstacle3.style.top = "0";
-// obstacle3.style.marginLeft = "11rem";
-
-// document.getElementById("road").appendChild(obstacle3);
-// obstacle3.classList.add("obstacle-animation");
+// Initial setup
+startButton.textContent = "Press Enter to Start";

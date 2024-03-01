@@ -6,6 +6,7 @@
     background-color: yellow;
     width: 15rem;
     border-radius: 0.7rem;
+    overflow: hidden;
 }
 #btncont {
     background-color: yellow;
