@@ -1,6 +1,10 @@
 let isavail = true;
 let totalTranslation = 0;
-let gameloopinterval;
+let gameinterval1;
+let gameinterval2;
+let scorecheck;
+let score = 0;
+let bestscore = 0;
 
 let car = document.getElementById("car");
 car.setAttribute("tabindex", "0");
@@ -45,7 +49,9 @@ document.getElementById("btncont").addEventListener("keydown", (e) => {
         creatingrandomobst(laneselection);
       }, 2300);
 
-      setInterval(() => {
+      scorecheck = setInterval(() => {
+        score += 0.004;
+        document.getElementById("new").innerText = `Score : ${score}`;
         checkCollision();
       }, 10);
     }
@@ -66,17 +72,17 @@ function creatingrandomobst(hey) {
   if (lane === 1) {
     obstacle.style.marginLeft = "1rem";
     document.getElementById("road").appendChild(obstacle);
-    obstacle.classList.add("obstacle-animation");
+    obstacle.classList.add("obstacle-animation0");
   }
   if (lane === 2) {
     obstacle.style.marginLeft = "1rem";
     document.getElementById("horiz2").appendChild(obstacle);
-    obstacle.classList.add("obstacle-animation");
+    obstacle.classList.add("obstacle-animation0");
   }
   if (lane === 3) {
     obstacle.style.marginLeft = "11rem";
     document.getElementById("road").appendChild(obstacle);
-    obstacle.classList.add("obstacle-animation");
+    obstacle.classList.add("obstacle-animation0");
   }
 }
 
@@ -101,11 +107,23 @@ function checkCollision() {
 
 function gameOver() {
   isavail = true;
-  totalTranslation = 0;
   document.getElementById("start").textContent = "Press Enter to Restart";
   clearInterval(gameinterval1);
   clearInterval(gameinterval2);
-  alert("Game Over! Your car collided with an obstacle.");
+  clearInterval(scorecheck);
+  if (score > bestscore) {
+    bestscore = score;
+    document.getElementById("prev").innerText = `Best score : ${bestscore}`;
+  }
+  alert("game over");
+  score = 0;
+  car.setAttribute("tabindex", "0");
+}
+for (i = 1; i <= 10; i++) {
+  return setTimeout(() => {
+    car.classList.remove(`obstacle-animation${i - 1}`);
+    car.classList.add(`obstacle-animation${1}`);
+  }, 60000 * i);
 }
 
 // const obstacle = document.createElement("div");

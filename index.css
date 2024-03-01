@@ -77,7 +77,7 @@ img {
     background-color: red;
     z-index: 2;
 }
-.obstacle-animation {
+.obstacle-animation0 {
     animation: moveObstacle 3s linear;
     animation-iteration-count: 1;
 }
@@ -89,4 +89,44 @@ img {
     to {
         top:100%
     }
+}
+.obstacle-animation1 {
+    animation: moveObstacle 2.8s linear;
+    animation-iteration-count: 1;
+}
+.obstacle-animation2 {
+    animation: moveObstacle 2.6s linear;
+    animation-iteration-count: 1;
+}
+.obstacle-animation3 {
+    animation: moveObstacle 2.4s linear;
+    animation-iteration-count: 1;
+}
+.obstacle-animation4 {
+    animation: moveObstacle 2.2s linear;
+    animation-iteration-count: 1;
+}
+.obstacle-animation5 {
+    animation: moveObstacle 2s linear;
+    animation-iteration-count: 1;
+}
+.obstacle-animation6 {
+    animation: moveObstacle 1.8s linear;
+    animation-iteration-count: 1;
+}
+.obstacle-animation7 {
+    animation: moveObstacle 1.6s linear;
+    animation-iteration-count: 1;
+}
+.obstacle-animation8 {
+    animation: moveObstacle 1.5s linear;
+    animation-iteration-count: 1;
+}
+.obstacle-animation9 {
+    animation: moveObstacle 1.3s linear;
+    animation-iteration-count: 1;
+}
+.obstacle-animation10 {
+    animation: moveObstacle 1.2s linear;
+    animation-iteration-count: 1;
 }
