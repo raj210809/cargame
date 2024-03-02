@@ -57,7 +57,16 @@ function updateGame() {
 }
 
 function createrandobst(lane) {
+  const objectids = [
+    "obstacle1",
+    "obstacle2",
+    "obstacle3",
+    "obstacle4",
+    "obstacle5",
+  ];
+  let objectid = objectids[Math.floor(Math.random() * 5)];
   const obstacle = document.createElement("div");
+  obstacle.id = objectid;
   obstacle.className = "obstacle";
   obstacle.style.transition = `top ${obstacleSpeed}s linear`;
   obstacle.style.marginLeft = `${(lane - 1) * 5 + 1}rem`;
