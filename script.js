@@ -67,7 +67,7 @@ function createrandobst(lane) {
   let objectid = objectids[Math.floor(Math.random() * 5)];
   const obstacle = document.createElement("div");
   obstacle.id = objectid;
-  obstacle.className = "obstacle";
+  obstacle.className = "obstacle animated";
   obstacle.style.transition = `top ${obstacleSpeed}s linear`;
   obstacle.style.marginLeft = `${(lane - 1) * 5 + 1}rem`;
   road.appendChild(obstacle);
@@ -118,9 +118,18 @@ function collision() {
     const obstacleRect = obstacle.getBoundingClientRect();
 
     if (colliding(carRect, obstacleRect)) {
+      stopanimation();
       gameOver();
       return;
     }
+  }
+}
+
+function stopanimation() {
+  const animatedobstacles = document.getElementsByClassName("animated");
+
+  for (const obstacle of animatedobstacles) {
+    obstacle.style.animation = "none";
   }
 }
 
@@ -167,8 +176,3 @@ document.addEventListener("keydown", (e) => {
   }
 });
 startbutton.textContent = "Press Enter to Start";
-setTimeout(() => {
-  const patthar = document.getElementsByClassName("obstacle");
-  patthar.classList.remove("obstacle-animation0");
-  patthar.classList.add("obstacle-animation5");
-}, 6000);
