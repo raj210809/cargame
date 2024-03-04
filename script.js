@@ -100,13 +100,25 @@ function createrandobst(lane) {
     obstacle.classList.remove("obstacle-animation6");
     obstacle.classList.add("obstacle-animation7");
   }
-  if (score > 160) {
+  if (score > 150) {
     obstacle.classList.remove("obstacle-animation7");
     obstacle.classList.add("obstacle-animation8");
   }
-  if (score > 180) {
+  if (score > 160) {
     obstacle.classList.remove("obstacle-animation8");
     obstacle.classList.add("obstacle-animation9");
+  }
+  if (score > 170) {
+    obstacle.classList.remove("obstacle-animation9");
+    obstacle.classList.add("obstacle-animation10");
+  }
+  if (score > 180) {
+    obstacle.classList.remove("obstacle-animation10");
+    obstacle.classList.add("obstacle-animation11");
+  }
+  if (score > 200) {
+    obstacle.classList.remove("obstacle-animation11");
+    obstacle.classList.add("obstacle-animation12");
   }
 }
 

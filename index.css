@@ -156,6 +156,14 @@ img {
     animation: moveObstacle 1.2s linear;
     animation-iteration-count: 1;
 }
+.obstacle-animation11 {
+    animation: moveObstacle 1s linear;
+    animation-iteration-count: 1;
+}
+.obstacle-animation12 {
+    animation: moveObstacle 0.8s linear;
+    animation-iteration-count: 1;
+}
 .lane-change-animation {
     animation: lanechange 0.5s ease-out;
   }
