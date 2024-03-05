@@ -72,54 +72,76 @@ function createrandobst(lane) {
   obstacle.style.marginLeft = `${(lane - 1) * 5 + 1}rem`;
   road.appendChild(obstacle);
   obstacle.classList.add("obstacle-animation0");
-  if (score > 20) {
-    obstacle.classList.remove("obstacle-animation0");
-    obstacle.classList.add("obstacle-animation1");
+  const animationclasses = [
+    "obstacle-animation0",
+    "obstacle-animation1",
+    "obstacle-animation2",
+    "obstacle-animation3",
+    "obstacle-animation4",
+    "obstacle-animation5",
+    "obstacle-animation6",
+    "obstacle-animation7",
+    "obstacle-animation8",
+    "obstacle-animation9",
+    "obstacle-animation10",
+    "obstacle-animation11",
+    "obstacle-animation12",
+    "obstacle-animation13",
+  ];
+  for (i = 1; i <= animationclasses.length; i++) {
+    if (score > i * 20) {
+      obstacle.classList.remove(animationclasses[i - 1]);
+      obstacle.classList.add(animationclasses[i]);
+    }
   }
-  if (score > 40) {
-    obstacle.classList.remove("obstacle-animation1");
-    obstacle.classList.add("obstacle-animation2");
-  }
-  if (score > 60) {
-    obstacle.classList.remove("obstacle-animation2");
-    obstacle.classList.add("obstacle-animation3");
-  }
-  if (score > 80) {
-    obstacle.classList.remove("obstacle-animation3");
-    obstacle.classList.add("obstacle-animation4");
-  }
-  if (score > 100) {
-    obstacle.classList.remove("obstacle-animation4");
-    obstacle.classList.add("obstacle-animation5");
-  }
-  if (score > 120) {
-    obstacle.classList.remove("obstacle-animation5");
-    obstacle.classList.add("obstacle-animation6");
-  }
-  if (score > 140) {
-    obstacle.classList.remove("obstacle-animation6");
-    obstacle.classList.add("obstacle-animation7");
-  }
-  if (score > 150) {
-    obstacle.classList.remove("obstacle-animation7");
-    obstacle.classList.add("obstacle-animation8");
-  }
-  if (score > 160) {
-    obstacle.classList.remove("obstacle-animation8");
-    obstacle.classList.add("obstacle-animation9");
-  }
-  if (score > 170) {
-    obstacle.classList.remove("obstacle-animation9");
-    obstacle.classList.add("obstacle-animation10");
-  }
-  if (score > 180) {
-    obstacle.classList.remove("obstacle-animation10");
-    obstacle.classList.add("obstacle-animation11");
-  }
-  if (score > 200) {
-    obstacle.classList.remove("obstacle-animation11");
-    obstacle.classList.add("obstacle-animation12");
-  }
+  // if (score > 20) {
+  //   obstacle.classList.remove("obstacle-animation0");
+  //   obstacle.classList.add("obstacle-animation1");
+  // }
+  // if (score > 40) {
+  //   obstacle.classList.remove("obstacle-animation1");
+  //   obstacle.classList.add("obstacle-animation2");
+  // }
+  // if (score > 60) {
+  //   obstacle.classList.remove("obstacle-animation2");
+  //   obstacle.classList.add("obstacle-animation3");
+  // }
+  // if (score > 80) {
+  //   obstacle.classList.remove("obstacle-animation3");
+  //   obstacle.classList.add("obstacle-animation4");
+  // }
+  // if (score > 100) {
+  //   obstacle.classList.remove("obstacle-animation4");
+  //   obstacle.classList.add("obstacle-animation5");
+  // }
+  // if (score > 120) {
+  //   obstacle.classList.remove("obstacle-animation5");
+  //   obstacle.classList.add("obstacle-animation6");
+  // }
+  // if (score > 140) {
+  //   obstacle.classList.remove("obstacle-animation6");
+  //   obstacle.classList.add("obstacle-animation7");
+  // }
+  // if (score > 150) {
+  //   obstacle.classList.remove("obstacle-animation7");
+  //   obstacle.classList.add("obstacle-animation8");
+  // }
+  // if (score > 160) {
+  //   obstacle.classList.remove("obstacle-animation8");
+  //   obstacle.classList.add("obstacle-animation9");
+  // }
+  // if (score > 170) {
+  //   obstacle.classList.remove("obstacle-animation9");
+  //   obstacle.classList.add("obstacle-animation10");
+  // }
+  // if (score > 180) {
+  //   obstacle.classList.remove("obstacle-animation10");
+  //   obstacle.classList.add("obstacle-animation11");
+  // }
+  // if (score > 200) {
+  //   obstacle.classList.remove("obstacle-animation11");
+  //   obstacle.classList.add("obstacle-animation12");
+  // }
 }
 
 function collision() {
