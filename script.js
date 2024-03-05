@@ -38,9 +38,22 @@ function startGame() {
 
 function handlekeypress(e) {
   if (!isgamerunning) return;
-  if (e.key === "d" || e.key === "D") movecar(5);
-  if (e.key === "a" || e.key === "A") movecar(-5);
+
+  if (e.key === "d" || e.key === "D") {
+    movecar(5);
+    car.classList.add("glowing");
+  }
+  if (e.key === "a" || e.key === "A") {
+    movecar(-5);
+    car.classList.add("glowing");
+  }
 }
+
+function handleKeyRelease() {
+  car.classList.remove("glowing");
+}
+
+document.addEventListener("keyup", handleKeyRelease);
 
 function movecar(amount) {
   totaltranslation += amount;

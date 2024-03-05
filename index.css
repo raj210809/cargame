@@ -1,19 +1,28 @@
-* {
+body {
+    background: linear-gradient(to bottom, #87CEFA, #1E90FF);
     margin: 0;
     padding: 0;
 }
 #score {
-    background-color: yellow;
+    position: relative;
+    background-color: #f8d74a;
     width: 15rem;
     border-radius: 0.7rem;
     overflow: hidden;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    bottom: 3rem;
 }
 #btncont {
-    background-color: yellow;
+    position: relative;
+    background-color: #f8d74a;
     width: 15rem;
     display: flex;
     justify-content: center;
     border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    bottom: 2rem;
 }
 
 #maindiv {
@@ -23,13 +32,17 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
+    opacity: 1;
 }
 .race {
     position: relative;
-    height: 24rem; /* Set the height of the "road" div */
+    height: 30rem;
     width: 15rem;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #292b2c;
     overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    bottom: 2.5rem;
 }
 #horiz1 {
     margin-left: 0rem;
@@ -43,7 +56,7 @@
 #horiz3 {
     margin-left: 10rem;
     background-color: rgba(0, 0, 0, 0.8);
-    height: 24rem;
+    height: 30rem;
     width: 5rem;
     border-left: 1px solid white;
     border-right: 1px solid white;
@@ -53,30 +66,35 @@
     position: relative;
     margin-left: 5rem;
     background-color: rgba(0, 0, 0, 0.8);
-    height: 24rem;
+    height: 30rem;
     width: 5rem;
     border-left: 1px solid white;
     border-right: 1px solid white;
 }
 #car {
+    position: relative;
     height: 5rem;
     width: 3rem;
     overflow: none;
-    translate: 0px 28rem;
+    translate: 0px 25rem;
     z-index: 2;
+    top: 3.5rem;
 }
 img {
+    position: relative;
     aspect-ratio: 5/3;
     height: 5rem;
-    width: 3rem;
+    width: 5rem;
     rotate: 270deg;
+    right: 1rem;
 }
 .obstacle {
     position: absolute;
     width: 3rem;
     height: 3rem;
-    background-color: white;
+    background-size: cover;
     z-index: 2;
+    border-radius: 50%;
 }
 #obstacle1 {
     background-image: url("images/rock.jpg");
@@ -177,9 +195,36 @@ img {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-20px); /* Adjust the translateY value as needed */
+      transform: translateY(-20px);
     }
     100% {
       transform: translateY(0);
     }
   }
+  @keyframes glow {
+    0% {
+        box-shadow: 0 0 5px 5px #1E90FF;
+    }
+    50% {
+        box-shadow: 0 0 20px 20px #1E90FF;
+    }
+    100% {
+        box-shadow: 0 0 5px 5px #1E90FF;
+    }
+}
+#car.glowing {
+    animation: glow 0.3s ease-out;
+}
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.slide-in {
+    animation: slideIn 1s ease-out;
+}
