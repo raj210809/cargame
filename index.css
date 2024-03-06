@@ -2,6 +2,9 @@ body {
     background: linear-gradient(to bottom, #87CEFA, #1E90FF);
     margin: 0;
     padding: 0;
+    background-image: url("images/th.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 #score {
     position: relative;
